@@ -2,16 +2,29 @@ const int MAX_RESULTS = 2048;       // size for store data to be sent
 
 static volatile uint16_t results [MAX_RESULTS]; // data vector
 static volatile uint16_t resultNumber; 
+static volatile bool comecou = false;
+static volatile uint16_t aux = 0;
 
 // ADC complete ISR
 ISR (ADC_vect)
 {
-  if(resultNumber == 2048)
-  {
-    while(resultNumber) Serial.println(results[resultNumber--]);
-    ADCSRA = 0x0;
+  if((ADC == 0 || comecou) && resultNumber < 2048){
+    //resultNumber = 0;
+    results[resultNumber++] = ADC;
+     comecou = true;
   }
-  results[resultNumber++] = ADC;
+  //if(resultNumber == 2048)
+  else
+  {
+    // resultNumber++;
+    while(resultNumber--) Serial.println(results[aux++]);
+    //ADCSRA = 0x0;
+    comecou = false;
+    resultNumber = 0;
+    aux = 0;
+  }
+  //if(results[resultNumber] >= ADC)
+    //results[resultNumber++] = ADC;
 }
 
 // ADC configure initialization
