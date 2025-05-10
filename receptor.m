@@ -20,7 +20,7 @@ amostras = 2048                % Quantidade de amostras para visualizar
 dados_digitais = [];                      % Variável para armazenar os dados recebidos pela USB
 
 %%%%%%%%%%%%%%%%%%% ABERTURA DA PORTA SERIAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-s1 = serial("COM5");           % Porta COM5 conforme solicitado
+  s1 = serial("COM9");           % Porta COM5 conforme solicitado
 set(s1, 'baudrate', 115200);   % Mesma velocidade configurada no Arduino (115200)
 set(s1, 'bytesize', 8);        % 8 bits de dados
 set(s1, 'parity', 'n');        % Sem paridade ('y' 'n')
